@@ -1,4 +1,5 @@
-#content {
-    background-color: red;
-    color: red;
+#statusCodeBox, #viewStatusButton, #statusBox {
+  display: block;
 }
+
+ 
