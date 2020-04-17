@@ -34,12 +34,11 @@
                 // Upon successful connection
 
                 // Get data from the form
-                $search_query = $_POST["search"];
+                // Sanitise the data with a should removes special characters and prevent SQL injections
+                $search_query = mysqli_real_escape_string($conn, $_POST["search"]);
 
-                // Set up the SQL command to retrieve the data from the table
-                // % symbol represent a wildcard to match any characters
-                // like is a compairson operator
-                $query = "select * from $sql_tble where CODE like '%$search_query%'";
+                // Create the query
+                $query = "SELECT * FROM $sql_tble WHERE CODE LIKE '%$search_query%'";
 
                 // executes the query and store result into the result pointer
                 $result = mysqli_query($conn, $query);
@@ -47,11 +46,8 @@
                 if (!$result) {
                     echo "<p>Something is wrong with ",  $query, "</p>";
                 } else {
-                    // Display the retrieved records
-                    // retrieve current record pointed by the result pointer
-                    // Note the = is used to assign the record value to variable $row, this is not an error
-                    // the ($row = mysqli_fetch_assoc($result)) operation results to false if no record was retrieved
-                    // _assoc is used instead of _row, so field name can be used
+                   // Go through all the results of the statuses and display them
+                   
                     while ($row = mysqli_fetch_assoc($result)) {
                         $allow_like = $row["ALLOW_LIKE"];
                         $allow_comment = $row["ALLOW_COMMENT"];
@@ -71,7 +67,7 @@
 
                 // close the database connection
                 mysqli_close($conn);
-            } // if successful database connection
+            } 
             ?>
             <a href="searchstatusform.php">Search for another Status</a><br />
             <a href="index.html">Back to Home</a><br />

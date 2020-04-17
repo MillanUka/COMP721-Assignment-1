@@ -21,6 +21,7 @@
         $allow_comment = $_POST["allowComment"];
         $allow_share = $_POST["allowShare"];
 
+        //This function checks if a status code is valid in the format of SXXXX where X is integer
         function check_if_status_code_valid($code)
         {
             if (strlen($code) == 5) {
@@ -46,12 +47,14 @@
             return false;
         }
 
+        //This function check that the new status entered is valid and does not meets the requirements
         function check_if_input_valid($code, $status, $date)
         {
+            //Check if the code is value
             $is_code_valid = check_if_status_code_valid($code);
 
             //Check the date
-            //Split the string into seperate parts;
+            //Split the string into seperate parts using the explode function
             $date_str = explode("-", $date);
             $year = $date_str[0];
             $month = $date_str[1];
@@ -60,12 +63,14 @@
             //check if the date is valid
             $date_valid = checkdate($month, $day, $year);
 
-            //Checks if the status us empty, if it is then it will be false.
+            //Checks if the status is empty, if it is then it will be false as the status cannot be null.
             $status_valid = !(strcmp($status, "") == 0);
 
             // And all the boolean flags to check if the data entered is ready to add to the database
             return $is_code_valid && $date_valid && $status_valid;
         }
+
+        // Writes the user's status into the database 
         function write_to_database($status_code, $status, $share, $date, $allow_like, $allow_comment, $allow_share)
         {
             require_once('../../conf/sqlinfo.inc.php');
@@ -93,7 +98,7 @@
                     . "values"
                     . "('$status_code','$status','$share', '$date', $is_like, $is_comment, $is_share)";
                 // executes the query
-                $result = mysqli_query($conn, $query);
+                $result = mysqli_query($conn, htmlspecialchars($query));
                 // checks if the execution was successful
                 if (!$result) {
                     echo "<p>There was an error! </p>";
