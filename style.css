@@ -2,4 +2,25 @@
   display: block;
 }
 
- 
+table {
+  width: 1000px;
+  border-width: 2px;;
+  border-color: white;
+}
+
+ a:link {
+  color: lightgray;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: lightgray;
+}
+
+a:hover {
+  color: yellow;
+}
+
+a:active {
+  color: blue;
+} 

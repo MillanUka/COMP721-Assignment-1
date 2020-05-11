@@ -14,8 +14,8 @@
         <br />
         <div class="container-xl bg-dark text-white border border-success">
             <form action="poststatusprocess.php" method="POST">
-                Status Code (Required): <input id="statusCodeBox" type="text" name="statusCode">
-                Status (Required): <input id="statusBox" type="text" name="status" value="">
+                Status Code (Required): <input id="statusCodeBox" type="text" name="statusCode" placeholder="e.g. S1000" maxlength="5">
+                Status (Required): <input id="statusBox" type="text" name="status" value="" placeholder="Please enter a status">
                 Share:
                 <div class="container" id="radioButtons">
                     <input id="public" type="radio" value="Public" name="radioAnswers" checked>
